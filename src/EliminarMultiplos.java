@@ -1,13 +1,43 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+public class EliminarMultiplos {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        //Pedimos los numeros al usuario
+        System.out.println("Introduce una lista de números (separalos por espacios):");
+        String entrada = sc.nextLine();
+
+
+        String[] partes = entrada.split("\\s+");
+        List<Integer> numeros = new ArrayList<>();
+
+        for (String parte : partes) {
+            try {
+                numeros.add(Integer.parseInt(parte));
+            } catch (NumberFormatException e) {
+                System.out.println("Nota: '" + parte + "' no es un número válido y será ignorado.");
+            }
+        }
+
+        System.out.print("¿De qué número quieres eliminar los múltiplos? ");
+        int divisor = sc.nextInt();
+
+        if (divisor != 0) {
+            numeros.removeIf(n -> n % divisor == 0);
+        } else {
+            System.out.println("No se puede calcular múltiplos de cero.");
+        }
+
+        System.out.println("Lista filtrada (sin múltiplos de " + divisor + "):");
+        if (numeros.isEmpty()) {
+            System.out.println("La lista está vacía.");
+        } else {
+            System.out.println(numeros);
+        }
+
+        sc.close();
     }
 }
